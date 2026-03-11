@@ -51,6 +51,7 @@ GEMINI_API_KEY=your_actual_api_key_here
    - `output/` 폴더 아래 카테고리별로 분류된 마크다운 파일과 이미지를 확인하세요.
 4. **추가 정제 및 리네임 (선택 사항)**
    - `python clean_rename.py`: 파일명에서 숫자/날짜를 빼고 간결한 제목으로 변경합니다. (이미 변경 완료된 파일은 자동으로 건너뜁니다)
+   - `python add_tags.py`: AI가 본문 내용을 싹 분석해서 핵심 키워드 3~5개를 마크다운 상단 설정(frontmatter) 부분에 **해시태그(#)** 형태로 달아줍니다!
    - `python clean_garbage.py`: 본문에 섞여 들어간 불필요한 UI 쓰레기 텍스트(좋아요수, '인기순' 등)를 깔끔하게 제거해 줍니다. 전체 데이터를 긁어온 뒤 한 번 실행해 주시면 좋습니다.
    - `python deep_clean.py`: 원본 글 내부에 댓글 목록이 통째로 껴들어간 중복 현상을 도려냅니다. **주의: 매번 돌릴 필요 없이, 나중에 글을 읽다가 중복 댓글이 발견되었을 때만 사후 치료용으로 한 번씩 실행**하시면 됩니다!
 
@@ -69,6 +70,7 @@ GEMINI_API_KEY=your_actual_api_key_here
 - `clean_garbage.py`: 본문 내 UI 찌꺼기 제거 스크립트
 - `deep_clean.py`: 원문-댓글 중복 블록 제거 스크립트
 - `clean_rename.py`: AI 기반 간결한 제목(숫자 제외) 변경 스크립트
+- `add_tags.py`: 마크다운 상단에 AI가 추출한 핵심 해시태그 3~5개를 추가하는 스크립트
 - `fix_classification.py`: [유지보수] 기존 마크다운 파일들을 바뀐 카테고리 설정에 맞춰 일괄 재분류(폴더 이동)하는 스크립트
 - `fix_duplicates.py`: [유지보수] 내용이 완전히 동일한 중복 에러 파일들을 스캔하고 삭제하는 스크립트
 
